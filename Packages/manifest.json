@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "com.unity.burst": "1.5.0-pre.3",
+    "com.unity.ugui": "1.0.0"
+  }
+}
