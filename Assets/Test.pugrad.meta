@@ -10,4 +10,4 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: 09e47cfbb6d1b1c4b9ec443d7560b4ad, type: 3}
   _colorMap: 0
   _resolution: 256
-  _lightness: 0.65
+  _lightness: 0.5

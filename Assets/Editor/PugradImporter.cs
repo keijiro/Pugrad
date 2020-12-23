@@ -17,8 +17,11 @@ public sealed class PugradImporter : ScriptedImporter
 
     public override void OnImportAsset(AssetImportContext context)
     {
-        var texture = new Texture2D((int)_resolution, 1);
-        texture.SetPixels(HsluvGradient.Generate(_resolution, _lightness));
+        var texture = new Texture2D((int)_resolution, 1, TextureFormat.RGBA32, false, true);
+
+        if (_colorMap == ColorMapType.HSLuv)
+            texture.SetPixels(HsluvGradient.Generate(_resolution, _lightness));
+
         texture.Apply();
 
         context.AddObjectToAsset("texture", texture);
