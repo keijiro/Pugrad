@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d9f006dc0ffe9ff4ba35188e4c2e326d
+guid: ac29228258eb701429a5c7906396d6eb
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -8,6 +8,6 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 09e47cfbb6d1b1c4b9ec443d7560b4ad, type: 3}
-  _colorMap: 0
+  _colorMap: 3
   _resolution: 256
-  _lightness: 0.5
+  _lightness: 0.87

@@ -4,7 +4,7 @@ using UnityEditor.AssetImporters;
 
 namespace Pugrad {
 
-public enum ColorMapType { Turbo, HSLuv }
+public enum ColorMapType { Viridis, Plasma, Magma, Inferno, Turbo, HSLuv }
 
 [ScriptedImporter(1, "pugrad")]
 public sealed class PugradImporter : ScriptedImporter
@@ -19,17 +19,23 @@ public sealed class PugradImporter : ScriptedImporter
     {
         var texture = new Texture2D((int)_resolution, 1);
         texture.wrapMode = TextureWrapMode.Clamp;
-
-        if (_colorMap == ColorMapType.Turbo)
-            texture.SetPixels(TurboGradient.Generate(_resolution));
-        else if (_colorMap == ColorMapType.HSLuv)
-            texture.SetPixels(HsluvGradient.Generate(_resolution, _lightness));
-
+        texture.SetPixels(GetPixels(_colorMap, _resolution, _lightness));
         texture.Apply();
 
         context.AddObjectToAsset("texture", texture);
         context.SetMainObject(texture);
     }
+
+    static Color [] GetPixels(ColorMapType type, uint width, float lightness)
+      => type switch {
+        ColorMapType.Viridis => MatplotlibColormaps.GenerateViridis(width),
+        ColorMapType.Plasma  => MatplotlibColormaps.GeneratePlasma(width),
+        ColorMapType.Magma   => MatplotlibColormaps.GenerateMagma(width),
+        ColorMapType.Inferno => MatplotlibColormaps.GenerateInferno(width),
+        ColorMapType.Turbo   => TurboGradient.Generate(width),
+        ColorMapType.HSLuv   => HsluvGradient.Generate(width, lightness),
+        _ => null
+      };
 
     #endregion
 }
