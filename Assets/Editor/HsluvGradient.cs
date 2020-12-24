@@ -18,7 +18,7 @@ static class HsluvGradient
         {
             hsluv.x = i * math.PI * 2 / resolution;
             HsluvHelper.HsluvToRgb(hsluv, out float3 rgb);
-            pixels[i] = new Color(rgb.x, rgb.y, rgb.z).gamma;
+            pixels[i] = new Color(rgb.x, rgb.y, rgb.z);
         }
         return pixels;
     }
@@ -75,8 +75,12 @@ static class HsluvHelper
         return math.cmin(min);
     }
 
+    static float3 FromLinear(float3 c)
+      => math.select
+         (12.92f * c, 1.055f * math.pow(c, 1 / 2.4f) - 0.055f, c > 0.0031308f);
+
     static float3 XyzToRgb(float3 xyz)
-      => math.mul(M, xyz);
+      => FromLinear(math.mul(M, xyz));
 
     static float LToY(float L) 
       => L <= 8 ? L / Kappa : math.pow((L + 16) / 116, 3);
