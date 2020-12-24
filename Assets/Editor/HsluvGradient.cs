@@ -1,13 +1,10 @@
 using UnityEngine;
 using Unity.Burst;
-using Unity.Collections;
 using Unity.Mathematics;
 
 namespace Pugrad {
 
-//
-// HSLuv Gradient generator class
-//
+// HSLuv Gradient generator
 static class HsluvGradient
 {
     public static Color [] Generate(uint resolution, float lightness)
@@ -24,9 +21,7 @@ static class HsluvGradient
     }
 }
 
-//
-// HSLuv conversion helper class
-//
+// HSLuv conversion helper
 [BurstCompile]
 static class HsluvHelper
 {
