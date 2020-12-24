@@ -1,33 +1,55 @@
 using UnityEngine;
+using Unity.Burst;
+using Unity.Collections;
 using Unity.Mathematics;
 
 namespace Pugrad {
 
+//
+// HSLuv Gradient generator class
+//
 static class HsluvGradient
 {
     public static Color [] Generate(uint resolution, float lightness)
     {
         var pixels = new Color[resolution];
-
         var hsluv = math.float3(0, 100, lightness * 100);
-
         for (var i = 0; i < resolution; i++)
         {
             hsluv.x = i * math.PI * 2 / resolution;
-            var rgb = HsluvToRgb(hsluv);
+            HsluvHelper.HsluvToRgb(hsluv, out float3 rgb);
             pixels[i] = new Color(rgb.x, rgb.y, rgb.z);
         }
-
         return pixels;
     }
+}
 
-    static float3x3 M = math.float3x3
+//
+// HSLuv conversion helper class
+//
+[BurstCompile]
+static class HsluvHelper
+{
+    #region Public method
+
+    [BurstCompile]
+    public static void HsluvToRgb(in float3 hsl, out float3 rgb)
+      => rgb = XyzToRgb(LuvToXyz(LchToLuv(HsluvToLch(hsl))));
+
+    #endregion
+
+    #region Private implementation
+
+    static readonly float3x3 M = math.float3x3
       ( 3.240969941904521f, -1.537383177570093f, -0.498610760293f   ,
        -0.96924363628087f ,  1.87596750150772f ,  0.041555057407175f,
         0.055630079696993f, -0.20397695888897f ,  1.056971514242878f);
-    static float2 RefUV = math.float2(0.19783000664283f, 0.46831999493879f);
-    static float Kappa   = 903.2962962f;
-    static float Epsilon = 0.0088564516f;
+
+    static readonly float2 RefUV =
+      math.float2(0.19783000664283f, 0.46831999493879f);
+
+    const float Kappa = 903.2962962f;
+    const float Epsilon = 0.0088564516f;
 
     static float LengthOfRayUntilIntersect(float theta, float2 line)
     {
@@ -42,19 +64,17 @@ static class HsluvGradient
         var sub1 = math.pow(lh.x + 16, 3) / 1560896;
         var sub2 = sub1 > Epsilon ? sub1 : lh.x / Kappa;
 
-        for (var c = 0; c < 3; ++c)
-        {
-            var m1 = M[0][c];
-            var m2 = M[1][c];
-            var m3 = M[2][c];
+        var top1 = sub2 * math.mul(M, math.float3(284517, 0, -94839));
+        var top2 = sub2 * math.mul(M, math.float3(731718, 769860, 838422));
+        var bottom = sub2 * math.mul(M, math.float3(0, -126452, 632260));
 
-            for (var t = 0; t < 2; ++t)
+        for (var t = 0; t < 2; ++t)
+        {
+            var top2_ = lh.x * top2 - 769860 * t * lh.x;
+            var bottom_ = bottom + 126452 * t;
+            for (var c = 0; c < 3; ++c)
             {
-                var top1 = (284517 * m1 - 94839 * m3) * sub2;
-                var top2 = (838422 * m3 + 769860 * m2 + 731718 * m1) *
-                  lh.x * sub2 - 769860 * t * lh.x;
-                var bottom = (632260 * m3 - 126452 * m2) * sub2 + 126452 * t;
-                var bound = math.float2(top1, top2) / bottom;
+                var bound = math.float2(top1[c], top2_[c]) / bottom_[c];
                 min = math.min(min, LengthOfRayUntilIntersect(lh.y, bound));
             }
         }
@@ -84,8 +104,7 @@ static class HsluvGradient
     static float3 HsluvToLch(float3 hsl)
       => hsl.zyx * math.float3(1, MaxChromaForLH(hsl.zx) / 100, 1);
 
-    public static float3 HsluvToRgb(float3 hsl)
-      => XyzToRgb(LuvToXyz(LchToLuv(HsluvToLch(hsl))));
+    #endregion
 }
 
 } // namespace Pugrad
