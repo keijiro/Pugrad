@@ -48,19 +48,12 @@ static class HsluvHelper
     static readonly float2 RefUV =
       math.float2(0.19783000664283f, 0.46831999493879f);
 
+    // CIE LUV constants
     const float Kappa = 903.2962962f;
     const float Epsilon = 0.0088564516f;
 
-    static float LengthOfRayUntilIntersect(float theta, float2 line)
-    {
-        var length = line.y / (math.sin(theta) - line.x * math.cos(theta));
-        return length >= 0 ? length : System.Single.MaxValue;
-    }
-
     static float MaxChromaForLH(float2 lh)
     {
-        var min = System.Single.MaxValue;
-
         var sub1 = math.pow(lh.x + 16, 3) / 1560896;
         var sub2 = sub1 > Epsilon ? sub1 : lh.x / Kappa;
 
@@ -68,18 +61,18 @@ static class HsluvHelper
         var top2 = sub2 * math.mul(M, math.float3(731718, 769860, 838422));
         var bottom = sub2 * math.mul(M, math.float3(0, -126452, 632260));
 
+        var min = math.float3(System.Single.MaxValue);
+
         for (var t = 0; t < 2; ++t)
         {
-            var top2_ = lh.x * top2 - 769860 * t * lh.x;
-            var bottom_ = bottom + 126452 * t;
-            for (var c = 0; c < 3; ++c)
-            {
-                var bound = math.float2(top1[c], top2_[c]) / bottom_[c];
-                min = math.min(min, LengthOfRayUntilIntersect(lh.y, bound));
-            }
+            var div = math.rcp(bottom + 126452 * t);
+            var slope = div * top1;
+            var inter = div * lh.x * (top2 - 769860 * t);
+            var length = inter / (math.sin(lh.y) - slope * math.cos(lh.y));
+            min = math.select(min, length, length < min & length >= 0);
         }
 
-        return min;
+        return math.cmin(min);
     }
 
     static float3 XyzToRgb(float3 xyz)
