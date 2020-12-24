@@ -18,7 +18,7 @@ static class HsluvGradient
         {
             hsluv.x = i * math.PI * 2 / resolution;
             HsluvHelper.HsluvToRgb(hsluv, out float3 rgb);
-            pixels[i] = new Color(rgb.x, rgb.y, rgb.z);
+            pixels[i] = new Color(rgb.x, rgb.y, rgb.z).gamma;
         }
         return pixels;
     }
