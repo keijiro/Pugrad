@@ -1,0 +1,14 @@
+{
+  "author": "Keijiro Takahashi",
+  "dependencies": { "com.unity.burst": "1.5.0-pre.3" },
+  "description": "Perceptually uniform colormap generator as an importer",
+  "displayName": "Pugrad",
+  "keywords": [ "unity" ],
+  "license": "Unlicense",
+  "name": "jp.keijiro.pugrad",
+  "repository": "github:keijiro/Pugrad",
+  "unity": "2020.2",
+  "unityRelease": "0f1",
+  "version": "1.0.0"
+}
+
