@@ -4,14 +4,14 @@ using UnityEditor.AssetImporters;
 
 namespace Pugrad {
 
-public enum ColorMapType { Viridis, Plasma, Magma, Inferno, Turbo, HSLuv }
+// Supported colormap type list
+public enum ColormapType { Viridis, Plasma, Magma, Inferno, Turbo, HSLuv }
 
+// Custom importer for .pugrad files
 [ScriptedImporter(1, "pugrad")]
 public sealed class PugradImporter : ScriptedImporter
 {
-    #region ScriptedImporter implementation
-
-    [SerializeField] ColorMapType _colorMap = ColorMapType.HSLuv;
+    [SerializeField] ColormapType _colormap = ColormapType.Viridis;
     [SerializeField] uint _resolution = 256;
     [SerializeField] float _lightness = 0.5f;
 
@@ -19,25 +19,22 @@ public sealed class PugradImporter : ScriptedImporter
     {
         var texture = new Texture2D((int)_resolution, 1);
         texture.wrapMode = TextureWrapMode.Clamp;
-        texture.SetPixels(GetPixels(_colorMap, _resolution, _lightness));
+        texture.SetPixels(GenerateColormap(_colormap, _resolution, _lightness));
         texture.Apply();
 
-        context.AddObjectToAsset("texture", texture);
+        context.AddObjectToAsset("colormap", texture);
         context.SetMainObject(texture);
     }
 
-    static Color [] GetPixels(ColorMapType type, uint width, float lightness)
-      => type switch {
-        ColorMapType.Viridis => MatplotlibColormaps.GenerateViridis(width),
-        ColorMapType.Plasma  => MatplotlibColormaps.GeneratePlasma(width),
-        ColorMapType.Magma   => MatplotlibColormaps.GenerateMagma(width),
-        ColorMapType.Inferno => MatplotlibColormaps.GenerateInferno(width),
-        ColorMapType.Turbo   => TurboGradient.Generate(width),
-        ColorMapType.HSLuv   => HsluvGradient.Generate(width, lightness),
-        _ => null
-      };
-
-    #endregion
+    static Color[] GenerateColormap(ColormapType type, uint width, float light)
+      => type switch
+        { ColormapType.Viridis => MatplotlibColormaps.GenerateViridis(width),
+          ColormapType.Plasma  => MatplotlibColormaps.GeneratePlasma(width),
+          ColormapType.Magma   => MatplotlibColormaps.GenerateMagma(width),
+          ColormapType.Inferno => MatplotlibColormaps.GenerateInferno(width),
+          ColormapType.Turbo   => TurboColormap.Generate(width),
+          ColormapType.HSLuv   => HsluvColormap.Generate(width, light),
+          _ => null };
 }
 
 } // namespace Pugrad

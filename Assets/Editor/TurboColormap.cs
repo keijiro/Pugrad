@@ -4,10 +4,10 @@ using Unity.Mathematics;
 
 namespace Pugrad {
 
-// Google Turbo colormap gradient generator
-static class TurboGradient
+// Google Turbo colormap generator
+static class TurboColormap
 {
-    public static Color [] Generate(uint resolution)
+    public static Color[] Generate(uint resolution)
     {
         var pixels = new Color[resolution];
         for (var i = 0; i < resolution; i++)
@@ -19,10 +19,10 @@ static class TurboGradient
     }
 }
 
-// Turbo colormap helper
+// Internal implementation with burst
 //
 // Original code:
-//   https://gist.github.com/mikhailov-work/0d177465a8151eb6ede1768d51d476c7
+// https://gist.github.com/mikhailov-work/0d177465a8151eb6ede1768d51d476c7
 [BurstCompile]
 static class TurboHelper
 {

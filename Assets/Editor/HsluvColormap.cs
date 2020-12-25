@@ -4,10 +4,10 @@ using Unity.Mathematics;
 
 namespace Pugrad {
 
-// HSLuv Gradient generator
-static class HsluvGradient
+// HSLuv colormap generator
+static class HsluvColormap
 {
-    public static Color [] Generate(uint resolution, float lightness)
+    public static Color[] Generate(uint resolution, float lightness)
     {
         var pixels = new Color[resolution];
         var hsluv = math.float3(0, 100, lightness * 100);
@@ -21,7 +21,10 @@ static class HsluvGradient
     }
 }
 
-// HSLuv conversion helper
+// HSLuv colorspace converter
+//
+// Based on the hsluv-csharp implementation, heavily optimized with Burst.
+// https://github.com/hsluv/hsluv-csharp
 [BurstCompile]
 static class HsluvHelper
 {
@@ -36,9 +39,9 @@ static class HsluvHelper
     #region Private implementation
 
     static readonly float3x3 M = math.float3x3
-      ( 3.240969941904521f, -1.537383177570093f, -0.498610760293f   ,
-       -0.96924363628087f ,  1.87596750150772f ,  0.041555057407175f,
-        0.055630079696993f, -0.20397695888897f ,  1.056971514242878f);
+      ( 3.240969941904521f, -1.537383177570093f,   -0.498610760293f,
+        -0.96924363628087f,   1.87596750150772f, 0.041555057407175f,
+        0.055630079696993f,  -0.20397695888897f, 1.056971514242878f);
 
     static readonly float2 RefUV =
       math.float2(0.19783000664283f, 0.46831999493879f);

@@ -4,10 +4,10 @@ using Unity.Mathematics;
 
 namespace Pugrad {
 
-// Matplotlib colormap generator
+// Matplotlib colormap generators
 static class MatplotlibColormaps
 {
-    public static Color [] GenerateViridis(uint resolution)
+    public static Color[] GenerateViridis(uint resolution)
     {
         var pixels = new Color[resolution];
         for (var i = 0; i < resolution; i++)
@@ -18,7 +18,7 @@ static class MatplotlibColormaps
         return pixels;
     }
 
-    public static Color [] GeneratePlasma(uint resolution)
+    public static Color[] GeneratePlasma(uint resolution)
     {
         var pixels = new Color[resolution];
         for (var i = 0; i < resolution; i++)
@@ -29,7 +29,7 @@ static class MatplotlibColormaps
         return pixels;
     }
 
-    public static Color [] GenerateMagma(uint resolution)
+    public static Color[] GenerateMagma(uint resolution)
     {
         var pixels = new Color[resolution];
         for (var i = 0; i < resolution; i++)
@@ -40,7 +40,7 @@ static class MatplotlibColormaps
         return pixels;
     }
 
-    public static Color [] GenerateInferno(uint resolution)
+    public static Color[] GenerateInferno(uint resolution)
     {
         var pixels = new Color[resolution];
         for (var i = 0; i < resolution; i++)
@@ -52,10 +52,10 @@ static class MatplotlibColormaps
     }
 }
 
-// Matplotlib colormap helper
+// Internal implementation with burst
 //
 // Original code:
-//   https://www.shadertoy.com/view/WlfXRN
+// https://www.shadertoy.com/view/WlfXRN
 [BurstCompile]
 static class MatplotlibHelper
 {
