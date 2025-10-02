@@ -1,0 +1,20 @@
+.label {
+    width: 10%;
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-right;
+}
+
+.row {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.gradient {
+    width: 60%;
+    margin-left: 10px;
+}
+
+.container {
+    justify-content: space-evenly;
+    flex-grow: 1;
+}
