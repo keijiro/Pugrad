@@ -3,27 +3,27 @@
     <ui:VisualElement name="container" class="container">
         <ui:VisualElement name="row1" class="row">
             <ui:Label text="Viridis" class="label" />
-            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Viridis.pugrad?fileID=-2417523614627309858&amp;guid=d9f006dc0ffe9ff4ba35188e4c2e326d&amp;type=3#Viridis&quot;);" />
+            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Test/Viridis.pugrad?fileID=-2417523614627309858&amp;guid=d9f006dc0ffe9ff4ba35188e4c2e326d&amp;type=3#Viridis&quot;);" />
         </ui:VisualElement>
         <ui:VisualElement name="row2" class="row">
             <ui:Label text="Plasma" class="label" />
-            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Plasma.pugrad?fileID=-2417523614627309858&amp;guid=40d20d053ba48994a89d9112ae23a5b1&amp;type=3#Plasma&quot;);" />
+            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Test/Plasma.pugrad?fileID=-2417523614627309858&amp;guid=40d20d053ba48994a89d9112ae23a5b1&amp;type=3#Plasma&quot;);" />
         </ui:VisualElement>
         <ui:VisualElement name="row3" class="row">
             <ui:Label text="Magma" class="label" />
-            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Magma.pugrad?fileID=-2417523614627309858&amp;guid=a6c1a14ba0fd2b3428771c8c44de9f53&amp;type=3#Magma&quot;);" />
+            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Test/Magma.pugrad?fileID=-2417523614627309858&amp;guid=a6c1a14ba0fd2b3428771c8c44de9f53&amp;type=3#Magma&quot;);" />
         </ui:VisualElement>
         <ui:VisualElement name="row4" class="row">
             <ui:Label text="Inferno" class="label" />
-            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Inferno.pugrad?fileID=-2417523614627309858&amp;guid=ac29228258eb701429a5c7906396d6eb&amp;type=3#Inferno&quot;);" />
+            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Test/Inferno.pugrad?fileID=-2417523614627309858&amp;guid=ac29228258eb701429a5c7906396d6eb&amp;type=3#Inferno&quot;);" />
         </ui:VisualElement>
         <ui:VisualElement name="row5" class="row">
             <ui:Label text="Turbo" class="label" />
-            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Turbo.pugrad?fileID=-2417523614627309858&amp;guid=6b26405396a674279943d4e23839b94a&amp;type=3#Turbo&quot;);" />
+            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Test/Turbo.pugrad?fileID=-2417523614627309858&amp;guid=6b26405396a674279943d4e23839b94a&amp;type=3#Turbo&quot;);" />
         </ui:VisualElement>
         <ui:VisualElement name="row6" class="row">
             <ui:Label text="HSLuv" class="label" />
-            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/HSLuv.pugrad?fileID=-2417523614627309858&amp;guid=d9707d327400641ff81919d832da8315&amp;type=3#HSLuv&quot;);" />
+            <ui:VisualElement class="gradient" style="background-image: url(&quot;project://database/Assets/Test/HSLuv.pugrad?fileID=-2417523614627309858&amp;guid=d9707d327400641ff81919d832da8315&amp;type=3#HSLuv&quot;);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
