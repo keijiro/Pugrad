@@ -1,8 +1,9 @@
 Shader "Pugrad/Test"
 {
-    CGINCLUDE
+    HLSLINCLUDE
 
-#include "UnityCG.cginc"
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/jp.keijiro.pugrad/Shaders/HsluvColormap.hlsl"
 #include "Packages/jp.keijiro.pugrad/Shaders/MatplotlibColormaps.hlsl"
 #include "Packages/jp.keijiro.pugrad/Shaders/TurboColormap.hlsl"
@@ -12,7 +13,7 @@ void Vertex(float4 position : POSITION,
             out float4 outPosition : SV_Position,
             out float2 outTexcoord : TEXCOORD0)
 {
-    outPosition = UnityObjectToClipPos(position);
+    outPosition = TransformObjectToHClip(position.xyz);
     outTexcoord = texcoord;
 }
 
@@ -22,7 +23,7 @@ float4 Fragment(float4 cs : SV_Position, float2 uv : TEXCOORD0) : SV_Target
 
     if (uv.y < 1.0 / 6)
     {
-        rgb = PugradHsluv(float3(uv.x * UNITY_PI * 2, 100, 60));
+        rgb = PugradHsluv(float3(uv.x * PI * 2, 100, 60));
     }
     else if (uv.y < 2.0 / 6)
     {
@@ -45,19 +46,19 @@ float4 Fragment(float4 cs : SV_Position, float2 uv : TEXCOORD0) : SV_Target
         rgb = PugradViridis(uv.x);
     }
 
-    return float4(GammaToLinearSpace(rgb), 1);
+    return float4(SRGBToLinear(rgb), 1);
 }
 
-    ENDCG
+    ENDHLSL
 
     SubShader
     {
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex Vertex
             #pragma fragment Fragment
-            ENDCG
+            ENDHLSL
         }
     }
 }

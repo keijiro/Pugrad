@@ -39,7 +39,7 @@ float PugradHsluvMaxChromaForLH(float2 lh)
 
 float3 PugradHsluvFromLinear(float3 c)
 {
-    return c > 0.0031308 ? 1.055 * pow(c, 1.0 / 2.4) - 0.055 : 12.92 * c;
+    return c > 0.0031308 ? 1.055 * pow(abs(c), 1.0 / 2.4) - 0.055 : 12.92 * c;
 }
 
 float3 PugradHsluvXyzToRgb(float3 xyz)
