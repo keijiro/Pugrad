@@ -1,14 +1,13 @@
-Pugrad
-======
+# Pugrad
 
 ![photo](https://i.imgur.com/t8uvAy7l.jpg)
 
-**Pugrad** is a color gradient generator for Unity that supports commonly-used
-perceptually uniform colormaps.
+**Pugrad** is a color gradient generator for Unity that provides a set of widely
+used, perceptually uniform colormaps.
 
-At the moment, Pugrad supports the following colormaps:
+Currently, Pugrad includes the following colormaps:
 
-- [Matplotlib colormaps] (Viridis, Plasma, Magma, Inferno)
+- Viridis, Plasma, Magma, and Inferno from the [Matplotlib colormaps]
 - [Turbo]
 - [HSLuv] (repeatable)
 
@@ -18,55 +17,21 @@ At the moment, Pugrad supports the following colormaps:
 [Turbo]: https://ai.googleblog.com/2019/08/turbo-improved-rainbow-colormap-for.html
 [HSLuv]: https://www.hsluv.org/
 
-How To Install
---------------
+## Installation
 
-This package uses the [scoped registry] feature to resolve package dependencies.
-Please add the following sections to the manifest file (Packages/manifest.json).
+The Pugrad package (`jp.keijiro.pugrad`) can be installed via the "Keijiro"
+scoped registry using Package Manager. To add the registry to your project,
+please follow [these instructions].
 
-[scoped registry]: https://docs.unity3d.com/Manual/upm-scoped.html
+[these instructions]:
+  https://gist.github.com/keijiro/f8c7e8ff29bfe63d86b888901b82644c
 
-To the `scopedRegistries` section:
+## How To Use
 
-```
-{
-  "name": "Keijiro",
-  "url": "https://registry.npmjs.com",
-  "scopes": [ "jp.keijiro" ]
-}
-```
-
-To the `dependencies` section:
-
-```
-"jp.keijiro.pugrad": "1.0.0"
-```
-
-After changes, the manifest file should look like below:
-
-```
-{
-  "scopedRegistries": [
-    {
-      "name": "Keijiro",
-      "url": "https://registry.npmjs.com",
-      "scopes": [ "jp.keijiro" ]
-    }
-  ],
-  "dependencies": {
-    "jp.keijiro.pugrad": "1.0.0",
-...
-```
-
-How To Use
-----------
-
-<!--4567890123456789012345678901234567890123456789012345678901234567890123456-->
-
-To cerate a colormap, select Assets -> Create -> Pugrad. It creates a `.pugrad`
+To create a colormap, select Assets > Create > Pugrad. This creates a `.pugrad`
 file that generates a `Texture2D` asset procedurally.
 
 ![inspector](https://i.imgur.com/KfkVl7Nm.jpg)
 
-You can change the resolution of the texture on the inspector. You can also
-change the lightness of the gradient when using the HSLuv colormap.
+You can change the texture resolution in the Inspector. When you use the HSLuv
+colormap, you can also adjust the gradient lightness.
