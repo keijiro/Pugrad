@@ -1,5 +1,4 @@
-Pugrad
-======
+# Pugrad
 
 ![photo](https://i.imgur.com/t8uvAy7l.jpg)
 
@@ -18,50 +17,16 @@ At the moment, Pugrad supports the following colormaps:
 [Turbo]: https://ai.googleblog.com/2019/08/turbo-improved-rainbow-colormap-for.html
 [HSLuv]: https://www.hsluv.org/
 
-How To Install
---------------
+## Installation
 
-This package uses the [scoped registry] feature to resolve package dependencies.
-Please add the following sections to the manifest file (Packages/manifest.json).
+The Pugrad package (`jp.keijiro.pugrad`) can be installed via the "Keijiro"
+scoped registry using Package Manager. To add the registry to your project,
+please follow [these instructions].
 
-[scoped registry]: https://docs.unity3d.com/Manual/upm-scoped.html
+[these instructions]:
+  https://gist.github.com/keijiro/f8c7e8ff29bfe63d86b888901b82644c
 
-To the `scopedRegistries` section:
-
-```
-{
-  "name": "Keijiro",
-  "url": "https://registry.npmjs.com",
-  "scopes": [ "jp.keijiro" ]
-}
-```
-
-To the `dependencies` section:
-
-```
-"jp.keijiro.pugrad": "1.0.0"
-```
-
-After changes, the manifest file should look like below:
-
-```
-{
-  "scopedRegistries": [
-    {
-      "name": "Keijiro",
-      "url": "https://registry.npmjs.com",
-      "scopes": [ "jp.keijiro" ]
-    }
-  ],
-  "dependencies": {
-    "jp.keijiro.pugrad": "1.0.0",
-...
-```
-
-How To Use
-----------
-
-<!--4567890123456789012345678901234567890123456789012345678901234567890123456-->
+## How To Use
 
 To cerate a colormap, select Assets -> Create -> Pugrad. It creates a `.pugrad`
 file that generates a `Texture2D` asset procedurally.
