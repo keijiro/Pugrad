@@ -27,11 +27,11 @@ float PugradHsluvMaxChromaForLH(float2 lh)
 
     for (int t = 0; t < 2; ++t)
     {
-        float3 div = 1.0 / (bottom + 126452 * t);
+        float3 div = rcp(bottom + 126452 * t);
         float3 slope = div * top1;
         float3 inter = div * lh.x * (top2 - 769860 * t);
         float3 length = inter / (sin(lh.y) - slope * cos(lh.y));
-        minLength = min(minLength, length >= 0 ? length : float3(1e10, 1e10, 1e10));
+        minLength = length >= 0 ? min(minLength, length) : minLength;
     }
 
     return min(minLength.x, min(minLength.y, minLength.z));
@@ -54,14 +54,11 @@ float PugradHsluvLToY(float L)
 
 float3 PugradHsluvLuvToXyz(float3 luv)
 {
-    if (luv.x == 0)
-        return float3(0, 0, 0);
-
+    if (luv.x == 0) return 0;
     float2 uv = luv.yz / (13 * luv.x) + PUGRAD_HSLUV_REF_UV;
     float y = PugradHsluvLToY(luv.x);
     float x = 9 * y * uv.x / (4 * uv.y);
     float z = (9 * y - (x + 15 * y) * uv.y) / (3 * uv.y);
-
     return float3(x, y, z);
 }
 
@@ -77,13 +74,8 @@ float3 PugradHsluvHsluvToLch(float3 hsl)
 
 float3 PugradHsluv(float3 hsl)
 {
-    return PugradHsluvXyzToRgb(
-        PugradHsluvLuvToXyz(
-            PugradHsluvLchToLuv(
-                PugradHsluvHsluvToLch(hsl)
-            )
-        )
-    );
+    float3 luv = PugradHsluvLchToLuv(PugradHsluvHsluvToLch(hsl));
+    return PugradHsluvXyzToRgb(PugradHsluvLuvToXyz(luv));
 }
 
 #endif // PUGRAD_HSLUV_COLORMAP_INCLUDED
