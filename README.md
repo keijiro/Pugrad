@@ -2,12 +2,12 @@
 
 ![photo](https://i.imgur.com/t8uvAy7l.jpg)
 
-**Pugrad** is a color gradient generator for Unity that supports commonly-used
-perceptually uniform colormaps.
+**Pugrad** is a color gradient generator for Unity that provides a set of widely
+used, perceptually uniform colormaps.
 
-At the moment, Pugrad supports the following colormaps:
+Currently, Pugrad includes the following colormaps:
 
-- [Matplotlib colormaps] (Viridis, Plasma, Magma, Inferno)
+- Viridis, Plasma, Magma, and Inferno from the [Matplotlib colormaps]
 - [Turbo]
 - [HSLuv] (repeatable)
 
@@ -28,10 +28,10 @@ please follow [these instructions].
 
 ## How To Use
 
-To cerate a colormap, select Assets -> Create -> Pugrad. It creates a `.pugrad`
+To create a colormap, select Assets > Create > Pugrad. This creates a `.pugrad`
 file that generates a `Texture2D` asset procedurally.
 
 ![inspector](https://i.imgur.com/KfkVl7Nm.jpg)
 
-You can change the resolution of the texture on the inspector. You can also
-change the lightness of the gradient when using the HSLuv colormap.
+You can change the texture resolution in the Inspector. When you use the HSLuv
+colormap, you can also adjust the gradient lightness.
