@@ -54,7 +54,7 @@ float PugradHsluvLToY(float L)
 
 float3 PugradHsluvLuvToXyz(float3 luv)
 {
-    if (luv.x == 0) return 0;
+    luv.x = max(luv.x, 1e-10);
     float2 uv = luv.yz / (13 * luv.x) + PUGRAD_HSLUV_REF_UV;
     float y = PugradHsluvLToY(luv.x);
     float x = 9 * y * uv.x / (4 * uv.y);
